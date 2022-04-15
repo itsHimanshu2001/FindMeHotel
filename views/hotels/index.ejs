@@ -1,0 +1,41 @@
+<% layout('layouts/boilerplate') %>
+<div id="cluster-map"></div>
+
+<div class="container">
+    <h1>All Hotels</h1>
+
+    <% for (let hotel of hotels){ %>
+    <div class="card mb-3">
+        <div class="row">
+            <div class="col-md-4">
+                <% if(hotel.images.length) { %>
+                <img src="<%=hotel.images[0].url%>" alt="" class="img-fluid">
+                <% }else { %>
+                <img src="https://res.cloudinary.com/dwbefprlg/image/upload/v1649935892/FindMeHotel/no-picture-available-icon-1_tepquv.png"
+                    alt="" class="img-fluid">
+                <% } %>
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title"><%= hotel.title %> </h5>
+                    <p class="card-text"><%= hotel.description %></p>
+                    <p class="card-text">
+                        <small class="text-muted"><%= hotel.location %> </small>
+                    </p>
+                    <a href="/hotels/<%= hotel._id %>" class="btn btn-danger">View <%= hotel.title %> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } %>
+
+</div>
+
+<script>
+    const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+    
+    const hotels = { features:  <%-JSON.stringify(hotels)%> };
+    //data section in clusterMap is expecting us to pass feature as a key also which maps to all hotels 
+</script>
+
+<script src="/javascripts/clusterMap.js"></script>

@@ -1,0 +1,71 @@
+<% layout('layouts/boilerplate') %> 
+<div class="row">
+    <h1 class="text-center">Edit Hotel</h1>
+    <div class="col-6 offset-3">
+        <form action="/hotels/<%= hotel._id %>?_method=PUT" method="POST" novalidate class="validated-form" enctype="multipart/form-data"> 
+
+            <div class="mb-3" >
+                <label class="form-label" for="title">Title</label>
+                <input class="form-control" type="text" id="title" name="hotel[title]" value="<%= hotel.title %>" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="location">Location</label>
+                <input class="form-control" type="text" id="location" name="hotel[location]" value="<%= hotel.location %>" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="formFileMultiple" class="form-label" for="image">Choose image(s)...</label>
+                <input class="form-control" type="file" id="image" name="image" multiple>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="price">Hotel Price</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">₹</span>
+                    </div>
+                    <input type="text" class="form-control" id="price" placeholder="0.00" aria-label="price" aria-describedby="basic-addon1" name="hotel[price]" value="<%= hotel.price %>" required>
+                </div>
+            </div>
+            
+
+            <div class="mb-3">
+                <label class="form-label" for="description">Description</label>
+                <textarea class="form-control" type="text" id="description" name="hotel[description]" required><%= hotel.description %></textarea>
+            </div>
+
+            <div class="mb-3">
+                <div class="row">
+                    <label class="form-label" for="description">Select these images to delete</label>
+                </div>
+                <% hotel.images.forEach(function(img, i) {  %>
+                    <img src="<%=img.thumbnail %>" class="img-thumbnail" alt="">
+                    <div class="form-check form-check-inline">
+                        <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
+                    </div>
+                    <label for="image-<%=i%>"></label>
+                <% })%>
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-info">Update Hotel</button>
+            </div>
+
+        </form>
+        <a href="/hotels/<%= hotel._id%>">Back to Hotel</a>
+
+    </div>
+</div>      
+            
+
+
+
+
+<!-- The name attribute specifies the name of an <input> element.
+The name attribute is used to reference elements in a JavaScript, or to reference form data after a form is submitted.
+Note: Only form elements with a name attribute will have their values passed when submitting a form. -->
+
+<!-- hotel[title] = "name of the hotel" is being passed onto server for parsing -->
+<!-- overriding POST using URL query - the above action will req PUT method in app.js and update the string by using Id using req.body.hotel  -->
+
