@@ -39,13 +39,15 @@
             <!-- only authorised user can delete -->
             <% if(currentUser && hotel.author.equals(currentUser._id)) { %> 
             <div class="card-body">
-                <a class="card-link btn btn-info" href="/hotels/<%= hotel._id %>/edit">Edit</a>
+                <a id="edit-btn" class="card-link btn btn-outline-dark" href="/hotels/<%= hotel._id %>/edit">Edit</a>
                 <!-- d-inline makes the form element inline with edit button coz form is independent and behave as a seperate row -->
-                <form class="d-inline" action="/hotels/<%= hotel._id %>?_method=DELETE" method="POST">
-                    <button class="btn btn-danger">Delete</button>
+                <form id="del-btn" class="d-inline" action="/hotels/<%= hotel._id %>?_method=DELETE" method="POST">
+                    <button class="btn btn-outline-dark">Delete</button>
                 </form>
+                
             </div>
             <% } %> 
+            <a id="book-btn" class="card-link btn" href="">BOOK</a>
             <div class="card-footer text-muted">
                 2 days ago
             </div>
@@ -56,7 +58,8 @@
       <div id='map'></div>
 
       <% if(currentUser) { %> 
-      <h2>Leave a Review</h2>
+      <h3>Leave a Review</h3>
+      <h5><%= hotel.reviews.length%> reviews</h5>
           <form action="/hotels/<%=hotel._id%>/reviews" method="POST" class="mb-3 validated-form" novalidate>  
             <!-- <div class="mb-3">
               <label class="form-label" for="rating">Rating</label>
@@ -78,7 +81,7 @@
             </fieldset>
 
             <div class="mb-3">
-              <label class="form-label" for="body">Review</label>
+              <label class="form-label" for="body"></label>
               <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" placeholder="Write your review" required></textarea>
               <div class="valid-feedback">
                 Looks good!
