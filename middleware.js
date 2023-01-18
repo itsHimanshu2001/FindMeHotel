@@ -1,5 +1,5 @@
 const Hotel = require('./models/hotels');
-const { hotelSchema, reviewSchema } = require('./schemas.js'); 
+const { userSchema, hotelSchema, reviewSchema } = require('./schemas.js'); 
 const ExpressError = require('./utils/ExpressError');
 const Review = require('./models/review');
 
@@ -67,4 +67,19 @@ module.exports.isReviewAuthor = async (req, res, next) => {
         return res.redirect(`/hotels/${id}`);
     }
     next();
+}
+
+module.exports.isUser = async (req, res, next) => {
+    const {error} = userSchema.validate(req.body);
+     if(error){
+        const msg = error.details.map(el => el.message).join(',')
+        // throw new ExpressError(msg,400);
+        res.status(400).json({
+            status: 'error',
+            message: msg,
+        });
+    }
+    else{
+        next();
+    }
 }

@@ -3,11 +3,12 @@ const router = express.Router();
 const passport = require('passport');
 const catchAsync = require('../utils/catchAsync');
 const users = require('../controllers/users');
+const { isUser } = require('../middleware');
 
 
 router.route('/register')
     .get( users.renderRegister)
-    .post( catchAsync( users.register ))
+    .post(isUser, catchAsync( users.register ))
 //normal catchAsync middleware wont be able to catch exceptions where id already exists
 //for that case i am using try and catch to flash it on the same window that the user already exists
 

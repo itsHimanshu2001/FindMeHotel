@@ -48,6 +48,7 @@ app.set('views', path.join(__dirname,'views'))
 //https://stackoverflow.com/questions/29960764/what-does-extended-mean-in-express-4-0
 //the below line is middleware which converts URLencoded form of data to parsed 
 //app.use is called everytime as we need to override stuffs and parse everytime app.js is ran
+app.use(express.json());
 app.use(express.urlencoded({extended: true}))  //is used to parse nested query strings from URL ex: "person[location]=delhi&person[age]=18" -> {person : {location : delhi, age: 18}}
 app.use(methodOverride('_method')); //overriding post to use put method
 app.use(express.static(path.join(__dirname,'public'))); //for serving the public directory which servers static files which is not needed to be passed to express sv but direclty it will be passed as it is to the required links like HTML file requires CSS...it saves us sv time

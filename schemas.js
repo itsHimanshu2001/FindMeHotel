@@ -1,4 +1,4 @@
-const BaseJoi = require('joi');  //it helps in validating each entry done in the form
+const BaseJoi = require('joi').extend(require('@joi/date'));  //it helps in validating each entry done in the form
 
 const sanitizeHtml = require('sanitize-html');  //it makes the string HTML escaped(removes HTML markups to avoid cross-site scripting )
 
@@ -45,4 +45,14 @@ module.exports.reviewSchema = Joi.object({
         rating: Joi.number().required().min(1).max(5),
         body: Joi.string().required().escapeHTML()
     }).required()  //this required thing is important as we want this whole review object to be there
+})
+
+module.exports.userSchema = Joi.object({
+    name: Joi.string().required().trim().max(20).alphanum(),
+    email: Joi.string().email().required(),
+    mobileNumber: Joi.string().length(10).pattern(/^[6-9]\d{9}$/).required(),
+    dob: Joi.date().format('YYYY-MM-DD'),
+    address: Joi.string().trim().required(),
+    username: Joi.string().trim().required().max(15).lowercase().alphanum(),
+    password: Joi.string().min(8),
 })

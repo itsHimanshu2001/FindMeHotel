@@ -6,7 +6,7 @@
     <div class="row row-cols-auto">
         <% for (let hotel of hotels){ %>
             <div class="col">
-                <div class="card" style="width: 25rem; margin-top: 2rem;">
+                <div onclick="window.location='/hotels/<%= hotel._id %>'" id="indexCard" class="card">
                     <% if(hotel.images.length) { %>
                         <img src="<%=hotel.images[0].url%>" class="card-img-top" alt="...">
                     <% }else { %>
@@ -16,7 +16,6 @@
                         <h5 class="card-title"><%= hotel.title %></h5>
                         <p class="card-text"><%= hotel.location %></p>
                         <p class="card-text" style="font-weight: bold;">₹<%= hotel.price %> night</p>
-                        <a href="/hotels/<%= hotel._id %>" class="btn btn-danger">View <%= hotel.title %></a>
                     </div>
                 </div>
             </div>

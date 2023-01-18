@@ -6,20 +6,28 @@ module.exports.renderRegister = (req, res) => {
 
 module.exports.register = async (req, res, next) => {
     try{
-        const { email, username, password } = req.body;
-        const user = new User({ email, username });
-        const registeredUser = await User.register(user, password);
+        // const { email, username, password, mobileNumber, dob, name, address } = req.body;
+        const user = new User(req.body);
+        const registeredUser = await User.register(user, req.body.password);
         //console.log(registeredUser);
         //passport offers us login() to login in to the session so whenever we register we will get loggedin too
         req.login(registeredUser, err => {
             if(err) return next(err);  //if error we go next to error handler
             req.flash('success', `${req.user.username}, Welcome to FindMeHotel!`);
-            res.redirect('/hotels');
+            res.status(201).json({
+                status: 'success',
+                messasge: 'Registered successfully'
+            });
         })
         
     } catch(e){
-        req.flash('error',e.message);
-        res.redirect('register');
+        // console.log(e); 
+        // req.flash('error',e.message);
+        // res.redirect('register');
+        res.status(400).json({
+            status: 'error',
+            message: e.message || 'Something went wrong'
+        })
         
     }
 }

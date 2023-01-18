@@ -8,7 +8,39 @@
                     alt="" class="card-img-top" />
                     <div class="card-body">
                         <h5 class="card-title">Register</h5>
-                        <form action="/register" method="POST" class="validated-form" novalidate>
+                        <form action="/register" id="register-form" method="POST" class="validated-form" novalidate>
+
+                            <div class="mb-3" >
+                                <label class="form-label" for="name">Full Name</label>
+                                <input class="form-control" type="text" id="name" name="name" required>
+                                <div class="valid-feedback">
+                                    Accepted!
+                                </div>
+                            </div>
+
+                            <div class="mb-3" >
+                                <label class="form-label" for="mobileNumber">Phone Number</label>
+                                <input class="form-control" type="text" id="mobileNumber" name="mobileNumber" required>
+                                <div class="valid-feedback">
+                                    Accepted!
+                                </div>
+                            </div>
+
+                            <div class="mb-3" >
+                                <label class="form-label" for="dob">Date of Birth</label>
+                                <input class="form-control" type="date" id="dob" name="dob" required>
+                                <div class="valid-feedback">
+                                    Accepted!
+                                </div>
+                            </div>
+
+                            <div class="mb-3" >
+                                <label class="form-label" for="address">Address</label>
+                                <input class="form-control" type="text" id="address" name="address" required>
+                                <div class="valid-feedback">
+                                    Accepted!
+                                </div>
+                            </div>
 
                             <div class="mb-3" >
                                 <label class="form-label" for="username">Username</label>
@@ -46,6 +78,7 @@
     </div>
 </div>
 
+<script src="/javascripts/registerUser.js"></script>
 
 
 
